@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-selfcheck.json
+
+# Dependencies
+.pip-cache/
+.tox/
+.nox/
+.eggs/
+*.egg-info/
+dist/
+build/
+
+# IDEs
+.idea/
+.vscode/
