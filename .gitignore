@@ -34,3 +34,7 @@ dist/
 .env.development.local
 .env.test.local
 .env.production.local
+huggingface-backend/
+todo-backend-hf/
+prepare_hf_deployment.py
+todo-backend/
