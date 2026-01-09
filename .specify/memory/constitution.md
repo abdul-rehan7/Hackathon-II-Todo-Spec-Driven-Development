@@ -1,53 +1,69 @@
 <!--
 Sync Impact Report:
-- Version change: 0.0.0 → 1.0.0
-- List of modified principles: All principles updated
-- Added sections: Key Standards, Phase-Specific Tech Stack Constraints
+- Version change: 1.0.0 → 1.1.0
+- List of modified principles:
+  - Architectural Foresight (refined)
+  - AI-Native Engineering (refined to Spec-Driven Development)
+  - Branch-Based Development (added)
+  - Defined Tech Stack (added)
+  - No AI Features in Phase II (added)
+- Added sections: None
 - Removed sections: None
 - Templates requiring updates:
   - ✅ .specify/templates/plan-template.md
   - ✅ .specify/templates/spec-template.md
   - ✅ .specify/templates/tasks-template.md
+  - ✅ .specify/templates/commands/sp.constitution.md
+  - ✅ .specify/templates/commands/sp.phr.md
 - Follow-up TODOs:
-  - TODO(RATIFICATION_DATE): explanation
+  - TODO(RATIFICATION_DATE): Needs to be provided
 -->
 # Evolutionary AI-Powered Todo Ecosystem (Phase I to Phase V) Constitution
 
 ## Core Principles
 
 ### Architectural Foresight
-Write Phase I code (In-memory) with Phase II (SQLModel) and Phase III (AI Agents) in mind to minimize future refactoring.
+Phase II code MUST be written with subsequent phases in mind to minimize future refactoring and ensure seamless evolution towards a full-stack, distributed system.
 
-### AI-Native Engineering
-Prioritize compatibility with Claude Code, Spec-Kit Plus, and MCP SDKs for automated development and agentic interaction.
+### Spec-Driven Development (SDD)
+All code generation MUST be driven by detailed specifications. Manual coding is prohibited. Claude MUST generate all code from the provided specs, ensuring consistency and adherence to architectural guidelines.
+
+### Branch-Based Development
+All Phase II development work MUST be conducted on the `phase-2` branch. Merges into the `main` branch are permitted ONLY after successful validation and adherence to defined quality gates.
 
 ### Modular Decoupling
-Maintain a strict separation between the CLI interface, business logic, and data storage layers.
+Maintain a strict separation between the frontend, backend business logic, and data storage layers to promote independent development, testing, and deployment.
 
 ### Production Readiness
-Even in early phases, follow "Twelve-Factor App" methodologies to simplify the transition to Kubernetes and Cloud environments.
+Even in early phases, "Twelve-Factor App" methodologies MUST be followed to simplify the transition to containerized and cloud-native environments.
+
+### Defined Tech Stack (Phase II)
+The technology stack for Phase II MUST consist of Next.js for the frontend, FastAPI for the backend, and SQLModel with Neon DB (PostgreSQL) for data persistence. No alternative technologies are permitted without explicit architectural review.
+
+### No AI Features in Phase II
+AI-specific features, including advanced agentic interactions or AI-driven analytics, are explicitly out of scope for Phase II. Focus MUST remain on core functional development.
 
 ## Key Standards
 
-- **Code Quality:** Strict adherence to PEP 8 for Python; utilize Type Hints for all function signatures to support SQLModel later.
-- **Documentation:** Every function must have Google-style docstrings; maintain a CHANGELOG.md to track progression through phases.
-- **AI Integration:** Ensure Todo schemas are "Agent-readable" (clear descriptions for AI tools/functions).
-- **Deployment Readiness:** Use environment variables for configuration from Phase I to ensure seamless Dockerization in Phase IV.
+- **Code Quality:** Strict adherence to PEP 8 for Python; utilize Type Hints for all function signatures to support SQLModel. Frontend code MUST follow established Next.js and TypeScript best practices.
+- **Documentation:** Every significant function/component MUST have clear docstrings/comments; maintain a CHANGELOG.md to track progression through phases.
+- **API Contracts:** All API endpoints MUST be well-defined with clear input/output schemas and error taxonomies.
+- **Deployment Readiness:** Use environment variables for configuration to ensure seamless Dockerization and deployment.
 
 ## Phase-Specific Tech Stack Constraints
 
-- **Phase I:** Python 3.11+, Claude Code for development, Spec-Kit Plus for testing/spec validation. Data must be stored in volatile memory (Lists/Dicts).
-- **Phase II:** Shift to Next.js (Frontend) and FastAPI (Backend); replace in-memory storage with SQLModel and Neon DB (PostgreSQL).
-- **Phase III:** Integration of OpenAI ChatKit and MCP (Model Context Protocol) for agentic task management.
-- **Phase IV:** Containerization via Docker; orchestration using Minikube/Helm with kubectl-ai for cluster management.
-- **Phase V:** Evolution to a distributed system using Kafka (event-driven) and Dapr (sidecars) on DigitalOcean DOKS.
+- **Phase I (Console App):** Python 3.11+, Claude Code for development, Spec-Kit Plus for testing/spec validation. Data stored in volatile memory (Lists/Dicts).
+- **Phase II (Full-Stack Web App):** Next.js (Frontend), FastAPI (Backend), SQLModel with Neon DB (PostgreSQL).
+- **Phase III (AI Integration):** Integration of OpenAI ChatKit and MCP (Model Context Protocol) for agentic task management. (Out of scope for current work)
+- **Phase IV (Containerization):** Containerization via Docker; orchestration using Minikube/Helm with kubectl-ai for cluster management. (Out of scope for current work)
+- **Phase V (Distributed System):** Evolution to a distributed system using Kafka (event-driven) and Dapr (sidecars) on DigitalOcean DOKS. (Out of scope for current work)
 
 ## Governance
 
-- **Success Criteria:**
-  - Phase I Completion: A functional, bug-free Python CLI app that passes all Spec-Kit Plus validation tests.
-  - Migration Path: Successful data-layer swap from Python Lists to SQLModel without breaking core business logic.
-  - Agentic Capability: AI Chatbot can successfully create, update, and query todos via the MCP SDK.
-  - Scalability: System successfully deploys to a Kubernetes cluster and handles asynchronous events via Kafka.
+- **Success Criteria (Phase II Focus):**
+  - Web App Functionality: A functional, bug-free full-stack web application (Next.js + FastAPI) that implements core Todo features.
+  - Data Persistence: Successful integration with SQLModel and Neon DB for robust data storage and retrieval.
+  - Branch Compliance: All Phase II development strictly adheres to the `phase-2` branch policy and validation requirements.
+  - Automated Generation: All new code is generated by Claude from specifications, with no manual coding.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): Needs to be provided | **Last Amended**: 2026-01-03
+**Version**: 1.1.0 | **Ratified**: TODO(RATIFICATION_DATE): Needs to be provided | **Last Amended**: 2026-01-05

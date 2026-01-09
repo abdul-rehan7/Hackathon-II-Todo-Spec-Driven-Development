@@ -6,7 +6,28 @@
       "Bash(python:*)",
       "Bash(git add:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: Implement Phase I in-memory todo CLI\n\nThis commit introduces the complete initial implementation of the\nin-memory command-line todo application.\n\nKey features include:\n- A modular structure with separation of concerns \\(models, engine, main\\).\n- Core CRUD functionality: add, view, complete, and delete tasks.\n- A simple REPL interface for user interaction.\n- All project setup, specification, planning, and task files.\n\nThis work corresponds to Phase I of the project, establishing the foundational codebase for future enhancements.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(.specify/scripts/bash/create-phr.sh:*)",
+      "Bash(git fetch:*)",
+      "Bash(ls:*)",
+      "Bash(git branch:*)",
+      "Bash(powershell.exe -File .specify/scripts/powershell/setup-plan.ps1 -Json \"$\\(cat <<''EOF''\nDefine system architecture for Phase II:\n- Frontend \\(Next.js\\), Backend \\(FastAPI\\), Database \\(SQLModel + Neon\\)\n- Data flow: UI → API → DB\n- Local dev + Vercel deployment\n- Mention that implementation occurs on `phase-2` branch\n\nDefine backend spec:\n- CRUD APIs for Todo\n- SQLModel persistence\n- API contracts, validation rules\n- No frontend concerns\n\nDefine database spec:\n- Todo schema \\(id, title, completed, priority, tags, due date\\)\n- Fields, constraints, relations\n- Connection + migration expectations for Neon\n\nDefine frontend spec:\n- Pages/components: Add, List, Update, Delete Todos\n- API integration rules\n- Simple, functional UI\nEOF\n\\)\")",
+      "Skill(sp.tasks)",
+      "Bash(powershell.exe:*)",
+      "Bash(npm init:*)",
+      "Bash(npx create-next-app:*)",
+      "Bash(npm install)",
+      "Bash(alembic init:*)",
+      "Bash(backend/venv/Scripts/alembic.exe init:*)",
+      "Bash(C:\\\\Users\\\\WorkSpace\\\\OneDrive\\\\Desktop\\\\TodoApp Phase 1\\\\backend\\\\venv\\\\Scripts\\\\pytest.exe:*)",
+      "Bash(C:\\\\Users\\\\WorkSpace\\\\OneDrive\\\\Desktop\\\\TodoApp Phase 1\\\\backend\\\\venv\\\\Scripts\\\\python.exe -m pytest:*)",
+      "Bash(\"/c/Users/WorkSpace/OneDrive/Desktop/TodoApp Phase 1/backend/venv/Scripts/python\" -m pytest:*)",
+      "Bash(npm install:*)",
+      "Bash(npm test:*)",
+      "Bash(npx jest:*)",
+      "Bash(.:*)",
+      "Bash(\"C:\\\\Users\\\\WorkSpace\\\\OneDrive\\\\Desktop\\\\TodoApp Phase 1\\\\backend\\\\venv\\\\Scripts\\\\python.exe\" -m pytest:*)",
+      "Bash(cd:*)"
     ]
   }
 }
