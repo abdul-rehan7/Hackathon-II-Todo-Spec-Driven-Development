@@ -25,7 +25,7 @@ export default function BackButton({ href = '/', text = 'Back', showIcon = true 
     <div className="mb-6">
       <button
         onClick={handleClick}
-        className="flex items-center text-indigo-600 hover:text-indigo-800 transition-colors"
+        className="flex items-center text-indigo-400 hover:text-indigo-300 transition-colors"
       >
         {showIcon && <FaArrowLeft className="mr-2" />}
         {text !== '←' && <span>{text}</span>}
