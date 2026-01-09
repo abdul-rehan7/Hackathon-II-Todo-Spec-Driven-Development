@@ -12,58 +12,52 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm py-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center">
-            <div className="text-xl font-bold text-indigo-600">Todo App</div>
-            <div className="flex space-x-4">
-              <Link
-                href="/todos"
-                className="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              >
-                Todos
-              </Link>
-              <Link
-                href="/todos/add"
-                className="bg-indigo-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition-colors"
-              >
-                Add Todo
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+    <div className="min-h-screen bg-gray-50">
       {/* Main Content */}
-      <main className="flex-grow flex items-center justify-center p-4">
-        <div className="max-w-3xl w-full bg-white rounded-xl shadow-lg p-8 space-y-8">
-          <div className="text-center">
+      <main className="flex-grow py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
             <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
               Welcome to Your Todo App
             </h1>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               A full-stack application for managing your daily tasks efficiently.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
-              <h3 className="font-semibold text-blue-800 mb-2">Add Tasks</h3>
-              <p className="text-gray-600 text-sm">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 transform transition-transform hover:scale-105">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-lg text-gray-800 mb-2 text-center">Add Tasks</h3>
+              <p className="text-gray-600 text-center text-sm">
                 Create new todos with titles, descriptions, priorities, and due dates.
               </p>
             </div>
-            <div className="bg-green-50 p-6 rounded-lg border border-green-100">
-              <h3 className="font-semibold text-green-800 mb-2">Organize</h3>
-              <p className="text-gray-600 text-sm">
+
+            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 transform transition-transform hover:scale-105">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-lg text-gray-800 mb-2 text-center">Organize</h3>
+              <p className="text-gray-600 text-center text-sm">
                 Manage your tasks with priority levels and due dates.
               </p>
             </div>
-            <div className="bg-purple-50 p-6 rounded-lg border border-purple-100">
-              <h3 className="font-semibold text-purple-800 mb-2">Track</h3>
-              <p className="text-gray-600 text-sm">
+
+            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 transform transition-transform hover:scale-105">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-lg text-gray-800 mb-2 text-center">Track</h3>
+              <p className="text-gray-600 text-center text-sm">
                 Monitor your progress and mark tasks as complete.
               </p>
             </div>
@@ -73,7 +67,7 @@ export default function HomePage() {
             <Link
               href="/todos"
               onClick={handleRedirect}
-              className={`px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg shadow-md hover:bg-indigo-700 transition-colors flex items-center justify-center ${
+              className={`px-8 py-4 bg-indigo-600 text-white font-medium rounded-lg shadow-lg hover:bg-indigo-700 transition-colors flex items-center justify-center ${
                 isLoading ? 'opacity-75 cursor-not-allowed' : ''
               }`}
             >
@@ -85,27 +79,28 @@ export default function HomePage() {
                   </svg>
                   Loading Todos...
                 </>
-              ) : 'View My Todos'}
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                  View My Todos
+                </>
+              )}
             </Link>
 
             <Link
               href="/todos/add"
-              className="px-6 py-3 bg-white text-indigo-600 font-medium rounded-lg border border-indigo-300 shadow-sm hover:bg-indigo-50 transition-colors flex items-center justify-center"
+              className="px-8 py-4 bg-white text-indigo-600 font-medium rounded-lg border border-indigo-300 shadow-md hover:bg-indigo-50 transition-colors flex items-center justify-center"
             >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
               Add New Todo
             </Link>
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-white border-t py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Todo App. Built with Next.js and FastAPI.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
