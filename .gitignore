@@ -38,3 +38,4 @@ huggingface-backend/
 todo-backend-hf/
 prepare_hf_deployment.py
 todo-backend/
+database.db

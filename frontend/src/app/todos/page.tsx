@@ -174,91 +174,174 @@ export default function TodoListPage() {
             </Link>
           </div>
         ) : (
-          <div className="overflow-hidden shadow-sm rounded-lg border border-gray-200">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="py-4 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Title
-                  </th>
-                  <th scope="col" className="py-4 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th scope="col" className="py-4 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Priority
-                  </th>
-                  <th scope="col" className="py-4 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Due Date
-                  </th>
-                  <th scope="col" className="py-4 px-6 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {todos.map((todo) => (
-                  <tr key={todo.id} className="hover:bg-gray-50">
-                    <td className="py-4 px-6 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        <span className={`${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+          <div className="space-y-4">
+            {/* Desktop Table View - Hidden on mobile */}
+            <div className="hidden md:block overflow-hidden shadow-sm rounded-lg border border-gray-200">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th scope="col" className="py-4 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Title
+                    </th>
+                    <th scope="col" className="py-4 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th scope="col" className="py-4 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Priority
+                    </th>
+                    <th scope="col" className="py-4 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Due Date
+                    </th>
+                    <th scope="col" className="py-4 px-6 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {todos.map((todo) => (
+                    <tr key={todo.id} className="hover:bg-gray-50">
+                      <td className="py-4 px-6 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">
+                          <span className={`${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+                            {todo.title}
+                          </span>
+                        </div>
+                        {todo.description && (
+                          <div className="text-sm text-gray-500 mt-1">
+                            {todo.description.substring(0, 50)}{todo.description.length > 50 ? '...' : ''}
+                          </div>
+                        )}
+                      </td>
+                      <td className="py-4 px-6 whitespace-nowrap">
+                        <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
+                          todo.completed
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {todo.completed ? 'Completed' : 'Pending'}
+                        </span>
+                      </td>
+                      <td className="py-4 px-6 whitespace-nowrap">
+                        <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
+                          todo.priority <= 2
+                            ? 'bg-red-100 text-red-800'
+                            : todo.priority <= 3
+                              ? 'bg-yellow-100 text-yellow-800'
+                              : 'bg-blue-100 text-blue-800'
+                        }`}>
+                          {getPriorityLabel(todo.priority)}
+                        </span>
+                      </td>
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-gray-500">
+                        {formatDate(todo.due_date as string)}
+                      </td>
+                      <td className="py-4 px-6 whitespace-nowrap text-right text-sm font-medium">
+                        <div className="flex justify-end space-x-3">
+                          <Link
+                            href={`/todos/${todo.id}/edit`}
+                            className="text-indigo-600 hover:text-indigo-900 p-2 rounded-full hover:bg-indigo-50 transition-colors"
+                            title="Edit todo"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                          </Link>
+                          <button
+                            className="text-red-600 hover:text-red-900 p-2 rounded-full hover:bg-red-50 transition-colors"
+                            onClick={() => handleDelete(todo.id)}
+                            title="Delete todo"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Card View - Hidden on desktop */}
+            <div className="md:hidden space-y-4">
+              {todos.map((todo) => (
+                <div
+                  key={todo.id}
+                  className={`border rounded-xl p-5 shadow-sm ${
+                    todo.completed
+                      ? 'bg-green-50 border-green-200'
+                      : 'bg-white border-gray-200'
+                  }`}
+                >
+                  <div className="flex flex-col sm:flex-row justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center mb-2">
+                        <h3 className={`font-medium truncate ${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}>
                           {todo.title}
+                        </h3>
+                      </div>
+
+                      {todo.description && (
+                        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                          {todo.description}
+                        </p>
+                      )}
+
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                          todo.completed
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {todo.completed ? 'Completed' : 'Pending'}
+                        </span>
+
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                          todo.priority <= 2
+                            ? 'bg-red-100 text-red-800'
+                            : todo.priority <= 3
+                              ? 'bg-yellow-100 text-yellow-800'
+                              : 'bg-blue-100 text-blue-800'
+                        }`}>
+                          {getPriorityLabel(todo.priority)}
                         </span>
                       </div>
-                      {todo.description && (
-                        <div className="text-sm text-gray-500 mt-1">
-                          {todo.description.substring(0, 50)}{todo.description.length > 50 ? '...' : ''}
+
+                      {todo.due_date && (
+                        <div className="flex items-center text-sm text-gray-600 mb-3">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span>Due: {formatDate(todo.due_date as string)}</span>
                         </div>
                       )}
-                    </td>
-                    <td className="py-4 px-6 whitespace-nowrap">
-                      <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
-                        todo.completed
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {todo.completed ? 'Completed' : 'Pending'}
-                      </span>
-                    </td>
-                    <td className="py-4 px-6 whitespace-nowrap">
-                      <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
-                        todo.priority <= 2
-                          ? 'bg-red-100 text-red-800'
-                          : todo.priority <= 3
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-blue-100 text-blue-800'
-                      }`}>
-                        {getPriorityLabel(todo.priority)}
-                      </span>
-                    </td>
-                    <td className="py-4 px-6 whitespace-nowrap text-sm text-gray-500">
-                      {formatDate(todo.due_date as string)}
-                    </td>
-                    <td className="py-4 px-6 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex justify-end space-x-3">
-                        <Link
-                          href={`/todos/${todo.id}/edit`}
-                          className="text-indigo-600 hover:text-indigo-900 p-2 rounded-full hover:bg-indigo-50 transition-colors"
-                          title="Edit todo"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                          </svg>
-                        </Link>
-                        <button
-                          className="text-red-600 hover:text-red-900 p-2 rounded-full hover:bg-red-50 transition-colors"
-                          onClick={() => handleDelete(todo.id)}
-                          title="Delete todo"
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </div>
+
+                    <div className="flex space-x-2 sm:ml-4 flex-shrink-0 self-start sm:self-auto">
+                      <Link
+                        href={`/todos/${todo.id}/edit`}
+                        className="text-indigo-600 hover:text-indigo-900 p-2 rounded-full hover:bg-indigo-50 transition-colors"
+                        title="Edit todo"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </Link>
+                      <button
+                        className="text-red-600 hover:text-red-900 p-2 rounded-full hover:bg-red-50 transition-colors"
+                        onClick={() => handleDelete(todo.id)}
+                        title="Delete todo"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
