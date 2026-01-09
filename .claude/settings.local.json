@@ -28,7 +28,8 @@
       "Bash(.:*)",
       "Bash(\"C:\\\\Users\\\\WorkSpace\\\\OneDrive\\\\Desktop\\\\TodoApp Phase 1\\\\backend\\\\venv\\\\Scripts\\\\python.exe\" -m pytest:*)",
       "Bash(cd:*)",
-      "Bash(dir \"C:\\\\Users\\\\WorkSpace\\\\OneDrive\\\\Desktop\\\\TodoApp Phase 1\\\\frontend\\\\src\\\\app\")"
+      "Bash(dir \"C:\\\\Users\\\\WorkSpace\\\\OneDrive\\\\Desktop\\\\TodoApp Phase 1\\\\frontend\\\\src\\\\app\")",
+      "Bash(dir)"
     ]
   }
 }
