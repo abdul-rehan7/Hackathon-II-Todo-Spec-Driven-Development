@@ -117,10 +117,10 @@ export class ErrorHandler {
  * Retry mechanism for failed requests
  */
 export const retryRequest = async (
-  requestFn: () => Promise<any>,
-  retries: number = 3,
-  delay: number = 1000
-): Promise<any> => {
+  requestFn,
+  retries = 3,
+  delay = 1000
+) => {
   for (let i = 0; i < retries; i++) {
     try {
       return await requestFn();
