@@ -9,7 +9,7 @@ import authService from './authService';
  * @param redirectTo - Optional path to redirect to after login (defaults to current path)
  * @returns boolean indicating if user is authenticated
  */
-export const requireAuth = async (redirectTo?: string): Promise<boolean> => {
+export const requireAuth = async (redirectTo) => {
   try {
     // Verify the current token is still valid
     const isValid = await authService.verifyToken();
@@ -35,7 +35,7 @@ export const requireAuth = async (redirectTo?: string): Promise<boolean> => {
  * Redirect to login page with optional redirect parameter
  * @param redirectPath - Path to redirect back to after login (defaults to current path)
  */
-export const redirectToLogin = (redirectPath?: string): void => {
+export const redirectToLogin = (redirectPath) => {
   const path = redirectPath || window.location.pathname;
   window.location.href = `/login?redirect=${encodeURIComponent(path)}`;
 };
@@ -44,7 +44,7 @@ export const redirectToLogin = (redirectPath?: string): void => {
  * Redirect to home page after successful authentication
  * @param redirectPath - Optional path to redirect to (defaults to home '/')
  */
-export const redirectToHome = (redirectPath?: string): void => {
+export const redirectToHome = (redirectPath) => {
   const path = redirectPath || '/';
   window.location.href = path;
 };
@@ -54,7 +54,7 @@ export const redirectToHome = (redirectPath?: string): void => {
  * @param currentPage - Current page path
  * @returns boolean indicating if page requires authentication
  */
-export const pageRequiresAuth = (currentPage: string): boolean => {
+export const pageRequiresAuth = (currentPage) => {
   // Define routes that require authentication
   const protectedRoutes = [
     '/',
@@ -74,7 +74,7 @@ export const pageRequiresAuth = (currentPage: string): boolean => {
  * Initialize route protection for the application
  * Should be called on app startup
  */
-export const initializeRouteProtection = (): void => {
+export const initializeRouteProtection = () => {
   // This could be expanded to monitor route changes
   // For now, we just export the utility functions
 };

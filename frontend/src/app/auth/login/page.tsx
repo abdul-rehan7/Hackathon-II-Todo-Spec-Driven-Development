@@ -52,7 +52,7 @@ const LoginPage = () => {
 
           <div className="mt-6 text-center">
             <p className="text-sm text-[var(--text-secondary)]">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <a
                 href="/auth/signup"
                 className="font-medium text-[var(--primary)] hover:text-[var(--primary-hover)] transition-colors duration-200"

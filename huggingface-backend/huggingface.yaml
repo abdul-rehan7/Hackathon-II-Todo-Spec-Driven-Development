@@ -1,0 +1,20 @@
+# Hugging Face Spaces configuration
+runtime:
+  python_version: "3.11"
+  requirements: "requirements.txt"
+  env:
+    - PORT: 7860
+  secrets: []
+  app_file: "app.py"
+  app_port: 7860
+  app_kwargs: {}
+  app_class: "FastAPI"
+  app_name: "Todo API"
+  app_description: "A FastAPI backend for the Todo application"
+  app_license: "mit"
+  app_author: "todo-app-developer"
+  app_tags:
+    - "fastapi"
+    - "todo"
+    - "api"
+    - "backend"
