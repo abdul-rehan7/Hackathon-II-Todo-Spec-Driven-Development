@@ -8,7 +8,7 @@
  * @param context - Context where the error occurred (e.g., 'fetch', 'mutation', 'auth')
  * @returns formatted error object
  */
-export const handleAuthError = (error: any, context: string = 'general'): { type: string; message: string; shouldRedirect: boolean } => {
+export const handleAuthError = (error, context = 'general') => {
   // Check if it's a network error
   if (!error.response) {
     return {
@@ -49,11 +49,7 @@ export const handleAuthError = (error: any, context: string = 'general'): { type
  * @param error - The error object
  * @param options - Configuration options for error handling
  */
-export const handleApiError = (error: any, options: {
-  showAlert?: boolean;
-  redirectToLogin?: boolean;
-  customMessage?: string;
-} = {}) => {
+export const handleApiError = (error, options = {}) => {
   const { showAlert = true, redirectToLogin = false, customMessage = null } = options;
 
   // Extract error information
@@ -81,14 +77,14 @@ export const handleApiError = (error: any, options: {
  * Generic error boundary helper for React components
  */
 export class ErrorHandler {
-  static captureError(error: Error, info: any) {
+  static captureError(error, info) {
     console.error('Error caught by boundary:', error, info);
 
     // In a real application, you might want to log to an error tracking service
     // Example: Sentry.captureException(error);
   }
 
-  static getErrorMessage(error: any): string {
+  static getErrorMessage(error) {
     if (error instanceof TypeError && error.message.includes('NetworkError')) {
       return 'Network error - please check your connection';
     }
