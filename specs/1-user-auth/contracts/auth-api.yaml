@@ -1,0 +1,201 @@
+# API Contracts: User Authentication
+
+## Authentication Endpoints
+
+### POST /api/auth/register
+**Description**: Register a new user account
+
+**Request**:
+```json
+{
+  "email": "user@example.com",
+  "password": "securePassword123"
+}
+```
+
+**Response (201 Created)**:
+```json
+{
+  "user": {
+    "id": "user-uuid",
+    "email": "user@example.com"
+  },
+  "session": {
+    "token": "session-token",
+    "expiresAt": "2024-01-10T10:00:00Z"
+  }
+}
+```
+
+**Response (400 Bad Request)**:
+```json
+{
+  "error": "Invalid email format or weak password"
+}
+```
+
+**Response (409 Conflict)**:
+```json
+{
+  "error": "Email already exists"
+}
+```
+
+### POST /api/auth/login
+**Description**: Authenticate user and create session
+
+**Request**:
+```json
+{
+  "email": "user@example.com",
+  "password": "securePassword123"
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "user": {
+    "id": "user-uuid",
+    "email": "user@example.com"
+  },
+  "session": {
+    "token": "session-token",
+    "expiresAt": "2024-01-10T10:00:00Z"
+  }
+}
+```
+
+**Response (401 Unauthorized)**:
+```json
+{
+  "error": "Invalid credentials"
+}
+```
+
+### POST /api/auth/logout
+**Description**: Terminate user session
+
+**Request**: (Requires authentication token)
+
+**Response (200 OK)**:
+```json
+{
+  "message": "Successfully logged out"
+}
+```
+
+### GET /api/auth/me
+**Description**: Get current user information
+
+**Request**: (Requires authentication token)
+
+**Response (200 OK)**:
+```json
+{
+  "user": {
+    "id": "user-uuid",
+    "email": "user@example.com",
+    "createdAt": "2024-01-01T00:00:00Z"
+  }
+}
+```
+
+**Response (401 Unauthorized)**:
+```json
+{
+  "error": "Not authenticated"
+}
+```
+
+## Protected Todo Endpoints
+
+### GET /api/todos
+**Description**: Get todos for authenticated user
+
+**Request**: (Requires authentication token)
+
+**Response (200 OK)**:
+```json
+{
+  "todos": [
+    {
+      "id": "todo-uuid",
+      "title": "Sample todo",
+      "completed": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
+```
+
+### POST /api/todos
+**Description**: Create a new todo for authenticated user
+
+**Request**: (Requires authentication token)
+```json
+{
+  "title": "New todo item"
+}
+```
+
+**Response (201 Created)**:
+```json
+{
+  "todo": {
+    "id": "todo-uuid",
+    "title": "New todo item",
+    "completed": false,
+    "userId": "user-uuid",
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  }
+}
+```
+
+### PUT /api/todos/{id}
+**Description**: Update a todo for authenticated user
+
+**Request**: (Requires authentication token)
+```json
+{
+  "title": "Updated todo item",
+  "completed": true
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+  "todo": {
+    "id": "todo-uuid",
+    "title": "Updated todo item",
+    "completed": true,
+    "userId": "user-uuid",
+    "createdAt": "2024-01-01T00:00:00Z",
+    "updatedAt": "2024-01-01T00:00:00Z"
+  }
+}
+```
+
+### DELETE /api/todos/{id}
+**Description**: Delete a todo for authenticated user
+
+**Request**: (Requires authentication token)
+
+**Response (200 OK)**:
+```json
+{
+  "message": "Todo deleted successfully"
+}
+```
+
+## Error Taxonomy
+
+- **400 Bad Request**: Invalid request format or validation errors
+- **401 Unauthorized**: Missing or invalid authentication token
+- **403 Forbidden**: User attempting to access resources they don't own
+- **404 Not Found**: Requested resource does not exist
+- **409 Conflict**: Attempting to create duplicate resources (e.g., email already exists)
+- **500 Internal Server Error**: Unexpected server error

@@ -5,6 +5,7 @@ from backend.src.models.todo import Todo # Ensure all models are imported
 import os
 
 from backend.src.api.v1.endpoints import todos # New import
+from backend.src.api import auth  # Import auth endpoints
 
 app = FastAPI()
 
@@ -18,6 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(todos.router, prefix="/api/v1") # New line to include router
+app.include_router(auth.router, prefix="/api/v1")  # Include auth router
 
 @app.on_event("startup")
 def on_startup():

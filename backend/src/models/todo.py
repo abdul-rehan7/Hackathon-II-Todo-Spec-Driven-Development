@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional, List
 from enum import Enum
 import json
-from sqlmodel import Field, SQLModel, Column
+from sqlmodel import Field, SQLModel, Column, Relationship
 from sqlalchemy import String
 from sqlalchemy.types import TypeDecorator, TEXT
 
@@ -33,6 +33,7 @@ class Todo(SQLModel, table=True):
     completed: bool = Field(default=False)
     priority: int = Field(default=1, ge=1, le=5) # 1 (high) to 5 (low)
     due_date: Optional[datetime] = Field(default=None)
+    user_id: str = Field(foreign_key="user.id", nullable=False)
 
     # tags: List["TodoTagLink"] = Relationship(back_populates="todo") # Commenting out for now as tags are not directly implemented in this phase
 
@@ -41,6 +42,7 @@ class TodoCreate(SQLModel):
     description: Optional[str] = None
     priority: int = Field(default=1, ge=1, le=5)
     due_date: Optional[datetime] = None
+    user_id: str
 
 class TodoRead(SQLModel):
     id: int
@@ -49,6 +51,7 @@ class TodoRead(SQLModel):
     completed: bool
     priority: int
     due_date: Optional[datetime] = None
+    user_id: str
 
 class TodoUpdate(SQLModel):
     title: Optional[str] = Field(default=None, min_length=1, max_length=255)
@@ -56,4 +59,5 @@ class TodoUpdate(SQLModel):
     completed: Optional[bool] = None
     priority: Optional[int] = Field(default=None, ge=1, le=5)
     due_date: Optional[datetime] = None
+    user_id: Optional[str] = None
 
