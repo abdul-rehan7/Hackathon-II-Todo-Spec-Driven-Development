@@ -1,4 +1,5 @@
 import { Todo, TodoCreate, TodoUpdate } from '../types/todo';
+import authService from './authService';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 
@@ -8,16 +9,37 @@ interface ApiResponse<T> {
   error?: string;
 }
 
+// Helper function to get auth headers
+const getAuthHeaders = () => {
+  const token = authService.getToken();
+  if (!token) {
+    throw new Error('No authentication token found');
+  }
+  return {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  };
+};
+
+// Helper function to handle unauthorized responses
+const handleUnauthorized = () => {
+  // Don't redirect directly from service, just throw an error
+  // The calling component will handle the error appropriately
+  throw new Error('Authentication required');
+};
+
 // Create a new todo
 export const createTodo = async (todoData: TodoCreate): Promise<ApiResponse<Todo>> => {
   try {
     const response = await fetch(`${API_BASE_URL}/todos/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(todoData),
     });
+
+    if (response.status === 401) {
+      return { error: 'Authentication required' };
+    }
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -35,7 +57,13 @@ export const createTodo = async (todoData: TodoCreate): Promise<ApiResponse<Todo
 // Get all todos with optional pagination
 export const getTodos = async (offset: number = 0, limit: number = 100): Promise<ApiResponse<Todo[]>> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/todos/?offset=${offset}&limit=${limit}`);
+    const response = await fetch(`${API_BASE_URL}/todos/?offset=${offset}&limit=${limit}`, {
+      headers: getAuthHeaders(),
+    });
+
+    if (response.status === 401) {
+      return { error: 'Authentication required' };
+    }
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -53,7 +81,13 @@ export const getTodos = async (offset: number = 0, limit: number = 100): Promise
 // Get a specific todo by ID
 export const getTodoById = async (id: number): Promise<ApiResponse<Todo>> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/todos/${id}`);
+    const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
+      headers: getAuthHeaders(),
+    });
+
+    if (response.status === 401) {
+      return { error: 'Authentication required' };
+    }
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -76,11 +110,13 @@ export const updateTodo = async (id: number, todoData: TodoUpdate): Promise<ApiR
   try {
     const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(todoData),
     });
+
+    if (response.status === 401) {
+      return { error: 'Authentication required' };
+    }
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -103,7 +139,12 @@ export const deleteTodo = async (id: number): Promise<ApiResponse<{ message: str
   try {
     const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
       method: 'DELETE',
+      headers: getAuthHeaders(),
     });
+
+    if (response.status === 401) {
+      return { error: 'Authentication required' };
+    }
 
     if (!response.ok) {
       const errorData = await response.json();

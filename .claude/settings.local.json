@@ -30,7 +30,14 @@
       "Bash(cd:*)",
       "Bash(dir \"C:\\\\Users\\\\WorkSpace\\\\OneDrive\\\\Desktop\\\\TodoApp Phase 1\\\\frontend\\\\src\\\\app\")",
       "Bash(dir)",
-      "Bash(git push --set-upstream origin phase-2)"
+      "Bash(git push --set-upstream origin phase-2)",
+      "Bash(.specify/scripts/powershell/create-new-feature.ps1 -Json \"System Overview:\n- Add authentication to Donezo using better-auth.com.\n- Protect all Todo routes and data.\n- Support session-based auth with login, signup, logout.\n\nFrontend Specs:\n- Login and Signup pages/components.\n- Session state handling.\n- Redirect unauthenticated users to login.\n\nBackend Specs:\n- User model: id, email, password \\(as required by better-auth\\), created_at.\n- Link Todo.user_id → User.id.\n- Middleware/auth guard for all Todo APIs.\n- Validate token/session on each request.\n\nData Model Changes:\n- Add User table in DB.\n- Update Todo table to reference User.id.\n\nSecurity Requirements:\n- Never expose client secret in frontend.\n- All sensitive routes require authentication.\n- Enforce user-scoped access.\" -Json -Number 1 -ShortName \"user-auth\" \"Add user authentication\")",
+      "Bash(git checkout -b 1-user-auth)",
+      "Bash(.specify/scripts/powershell/setup-plan.ps1 -Json)",
+      "Bash(git rev-parse --git-dir)",
+      "Bash(find backend -name \"*.py\" -exec grep -l \"Todo\\\\|todo\" {} ;)",
+      "Bash(dir backend /s)",
+      "Bash(del \"C:\\\\Users\\\\WorkSpace\\\\OneDrive\\\\Desktop\\\\TodoApp Phase 1\\\\frontend\\\\src\\\\app\\\\api\\\\auth\\\\[...path]\\\\route.js\")"
     ]
   }
 }
