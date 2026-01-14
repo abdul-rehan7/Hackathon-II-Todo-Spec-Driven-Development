@@ -2,13 +2,13 @@
 Authentication service layer for user registration, login, and session management
 """
 from sqlmodel import Session, select
-from backend.src.models.user import User, UserCreate, UserRead
+from backend.models.user import User, UserCreate, UserRead
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 import jwt
 import os
 from typing import Optional
-from backend.src.utils.validation import is_valid_email, is_strong_password
+from backend.utils.validation import is_valid_email, is_strong_password
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

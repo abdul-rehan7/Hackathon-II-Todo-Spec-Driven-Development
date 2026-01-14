@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   // Construct the backend URL
-  const backendUrl = 'http://localhost:8000/api/v1/auth/login';
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000/api/v1/auth/login';
 
   try {
     // Handle FormData (for login which uses FormData)

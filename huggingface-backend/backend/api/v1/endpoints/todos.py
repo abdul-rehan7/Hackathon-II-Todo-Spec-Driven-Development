@@ -1,10 +1,10 @@
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
-from backend.src.models.todo import Todo, TodoCreate, TodoRead, TodoUpdate
-from backend.src.database.connection import get_session
-from backend.src.middleware.auth_middleware import get_current_user
-from backend.src.models.user import User
+from backend.models.todo import Todo, TodoCreate, TodoRead, TodoUpdate
+from backend.database.connection import get_session
+from backend.middleware.auth_middleware import get_current_user
+from backend.models.user import User
 import logging
 
 router = APIRouter()

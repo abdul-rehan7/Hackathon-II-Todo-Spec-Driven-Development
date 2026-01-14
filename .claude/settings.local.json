@@ -38,7 +38,8 @@
       "Bash(find backend -name \"*.py\" -exec grep -l \"Todo\\\\|todo\" {} ;)",
       "Bash(dir backend /s)",
       "Bash(del \"C:\\\\Users\\\\WorkSpace\\\\OneDrive\\\\Desktop\\\\TodoApp Phase 1\\\\frontend\\\\src\\\\app\\\\api\\\\auth\\\\[...path]\\\\route.js\")",
-      "Bash(git push origin 1-user-auth)"
+      "Bash(git push origin 1-user-auth)",
+      "Bash(powershell -Command \"Get-ChildItem -Path ''C:\\\\Users\\\\WorkSpace\\\\OneDrive\\\\Desktop\\\\TodoApp Phase 1\\\\frontend\\\\src\\\\app\\\\api'' -Recurse -Name\")"
     ]
   }
 }

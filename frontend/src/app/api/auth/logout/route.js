@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
-  // Construct the backend URL
-  const backendUrl = 'http://localhost:8000/api/v1/auth/logout';
+  // Construct the backend URL using environment variable
+  const backendUrl = `${process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000/api/v1'}/auth/logout`;
 
   try {
     // Get authorization header if present

@@ -1,5 +1,5 @@
 from sqlmodel import create_engine, Session, SQLModel
-from backend.src.models.todo import Todo # Ensure all models are imported
+from backend.models.todo import Todo # Ensure all models are imported
 import os
 
 # Dynamic database URL from environment variable

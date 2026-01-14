@@ -7,8 +7,8 @@ from typing import Optional
 import jwt
 from jwt.exceptions import InvalidTokenError
 from sqlmodel import Session
-from backend.src.database.connection import get_session
-from backend.src.models.user import User
+from backend.database.connection import get_session
+from backend.models.user import User
 import os
 
 
