@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
   console.log('=== PROXY REGISTER ROUTE CALLED ==='); // Debug log
 
-  // Construct the backend URL
-  const backendUrl = 'http://localhost:8000/api/v1/auth/register';
+  // Construct the backend URL using environment variable
+  const backendUrl = `${process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000/api/v1'}/auth/register`;
 
   try {
     // Handle FormData (for register which uses FormData)

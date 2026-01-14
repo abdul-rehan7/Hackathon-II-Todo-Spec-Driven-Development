@@ -4,10 +4,10 @@ Authentication API endpoints for user registration, login, and logout
 from fastapi import APIRouter, Depends, HTTPException, status, Form
 from fastapi.security import HTTPAuthorizationCredentials
 from sqlmodel import Session
-from backend.src.database.connection import get_session
-from backend.src.models.user import UserCreate, UserRead, User
-from backend.src.services.auth_service import AuthService
-from backend.src.middleware.auth_middleware import security, get_current_user as get_user_from_token
+from backend.database.connection import get_session
+from backend.models.user import UserCreate, UserRead, User
+from backend.services.auth_service import AuthService
+from backend.middleware.auth_middleware import security, get_current_user as get_user_from_token
 from datetime import datetime
 from typing import Dict, Any
 

@@ -10,9 +10,9 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
 # Import your backend modules - using absolute imports
-from backend.src.database.connection import create_db_and_tables
-from backend.src.api.v1.endpoints import todos
-from backend.src.api import auth  # Import auth endpoints
+from backend.database.connection import create_db_and_tables
+from backend.api.v1.endpoints import todos
+from backend.api import auth  # Import auth endpoints
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -23,10 +23,10 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-# Add CORS middleware - adjust origins for production
+# Add CORS middleware - configured for your Vercel domain
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
+    allow_origins=["https://hackathon-ii-todo-spec-driven-devel-pi.vercel.app", "http://localhost:3000", "http://localhost:8000"],  # Allow your Vercel domain and local development
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
