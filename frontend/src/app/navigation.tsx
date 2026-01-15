@@ -7,13 +7,13 @@ import { FaHome, FaPlus, FaList, FaArrowLeft, FaGithub, FaEnvelope, FaLock, FaIn
 // Navigation component
 export default function Navigation() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   useEffect(() => {
-    // Check authentication status on mount
+    // Check authentication status after hydration
     const token = localStorage.getItem('auth-token');
     setIsAuthenticated(!!token);
-    setLoading(false);
+    setHasHydrated(true);
 
     // Listen for storage changes to update auth status
     const handleStorageChange = () => {
@@ -54,7 +54,8 @@ export default function Navigation() {
     }
   };
 
-  if (loading) {
+  // Don't show anything until hydrated to avoid flash of incorrect content
+  if (!hasHydrated) {
     return (
       <nav className="bg-gray-900 text-white shadow-lg border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +66,7 @@ export default function Navigation() {
               </Link>
             </div>
             <div className="hidden md:flex items-center space-x-4">
-              <div className="px-4 py-2 text-gray-400">Loading...</div>
+              <div className="px-4 py-2 text-gray-400">...</div>
             </div>
             <div className="md:hidden flex items-center">
               <button className="text-gray-300 hover:text-white">
