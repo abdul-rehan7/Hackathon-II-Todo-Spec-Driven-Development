@@ -3,11 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-export const metadata = {
-  title: 'Donezo',
-  description: 'A full-stack todo application with Next.js and FastAPI',
-};
-
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
 
