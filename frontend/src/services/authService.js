@@ -24,14 +24,34 @@ class AuthService {
    * Set the authentication token in localStorage
    */
   setToken(token) {
+    const oldValue = localStorage.getItem('auth-token');
     localStorage.setItem('auth-token', token);
+
+    // Dispatch a storage event to notify other parts of the app
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'auth-token',
+      oldValue: oldValue,
+      newValue: token,
+      url: window.location.href,
+      storageArea: localStorage
+    }));
   }
 
   /**
    * Remove the authentication token from localStorage
    */
   removeToken() {
+    const oldValue = localStorage.getItem('auth-token');
     localStorage.removeItem('auth-token');
+
+    // Dispatch a storage event to notify other parts of the app
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'auth-token',
+      oldValue: oldValue,
+      newValue: null,
+      url: window.location.href,
+      storageArea: localStorage
+    }));
   }
 
   /**
