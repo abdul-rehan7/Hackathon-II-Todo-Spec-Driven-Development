@@ -8,10 +8,6 @@ import { FaHome, FaPlus, FaList, FaArrowLeft, FaGithub, FaEnvelope, FaLock, FaIn
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = {
-  title: 'Donezo',
-  description: 'A full-stack todo application with Next.js and FastAPI',
-}
 
 // Navigation component
 function Navigation() {
