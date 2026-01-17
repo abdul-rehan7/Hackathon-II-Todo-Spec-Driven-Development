@@ -1,14 +1,20 @@
 <!--
 Sync Impact Report:
-- Version change: 1.0.0 → 1.1.0
+- Version change: 1.1.0 → 1.2.0
 - List of modified principles:
-  - Architectural Foresight (refined)
-  - AI-Native Engineering (refined to Spec-Driven Development)
-  - Branch-Based Development (added)
-  - Defined Tech Stack (added)
-  - No AI Features in Phase II (added)
-- Added sections: None
-- Removed sections: None
+  - No AI Features in Phase II (removed)
+  - Phase III (AI Integration) (updated description to reflect new architecture)
+- Added sections:
+  - AI Agent Layer Integration
+  - Reusable Intelligence via Skills
+  - Stateless and Deterministic Skills
+  - Separation of Concerns for Skills
+  - AI Agent Responsibilities
+  - No External LLM Dependency
+  - Frontend Chat UI Implementation
+  - Architecture Preservation
+- Removed sections:
+  - No AI Features in Phase II
 - Templates requiring updates:
   - ✅ .specify/templates/plan-template.md
   - ✅ .specify/templates/spec-template.md
@@ -40,8 +46,29 @@ Even in early phases, "Twelve-Factor App" methodologies MUST be followed to simp
 ### Defined Tech Stack (Phase II)
 The technology stack for Phase II MUST consist of Next.js for the frontend, FastAPI for the backend, and SQLModel with Neon DB (PostgreSQL) for data persistence. No alternative technologies are permitted without explicit architectural review.
 
-### No AI Features in Phase II
-AI-specific features, including advanced agentic interactions or AI-driven analytics, are explicitly out of scope for Phase II. Focus MUST remain on core functional development.
+### AI Agent Layer Integration
+The system introduces an AI Agent layer for conversational interaction. This agent MUST serve as the intermediary between user input and business logic execution, enabling natural language interfaces to application functionality.
+
+### Reusable Intelligence via Skills
+Business logic MUST be implemented as reusable intelligence via skill.md files. Each skill represents a discrete, testable unit of business capability that can be orchestrated by the AI agent without duplication of logic across the codebase.
+
+### Stateless and Deterministic Skills
+Skills MUST be stateless, deterministic, and reusable. Each skill execution MUST produce consistent outputs for identical inputs without relying on external mutable state, ensuring predictability and testability across all interactions.
+
+### Separation of Concerns for Skills
+Skills MUST NOT handle authentication, authorization, HTTP, or UI logic. These cross-cutting concerns remain the responsibility of dedicated infrastructure layers, allowing skills to focus exclusively on pure business logic implementation.
+
+### AI Agent Responsibilities
+The AI Agent is responsible for intent detection, validation, user context injection, and skill orchestration. The agent MUST interpret user input, validate required context, inject user-specific data, and coordinate the execution of appropriate skills to fulfill user requests.
+
+### No External LLM Dependency
+No external LLM or OpenAI API keys are required; agent reasoning can be rule-based or mocked. The system architecture MUST support deterministic, locally-executable reasoning that does not rely on external services for core functionality, ensuring reliability and control over the AI interaction layer.
+
+### Frontend Chat UI Implementation
+Frontend chat UI MUST be implemented using Next.js components, not ChatKit. The conversational interface MUST leverage native Next.js capabilities and libraries rather than external chat frameworks to maintain consistency with the established tech stack and avoid additional dependencies.
+
+### Architecture Preservation
+Existing Phase 2 architecture (auth, DB, APIs) MUST remain unchanged. The AI Agent layer integrates as an additional layer without modifying the established authentication, database, or API structures, preserving the integrity of the existing system while extending functionality through the new conversational interface.
 
 ## Key Standards
 
@@ -54,16 +81,17 @@ AI-specific features, including advanced agentic interactions or AI-driven analy
 
 - **Phase I (Console App):** Python 3.11+, Claude Code for development, Spec-Kit Plus for testing/spec validation. Data stored in volatile memory (Lists/Dicts).
 - **Phase II (Full-Stack Web App):** Next.js (Frontend), FastAPI (Backend), SQLModel with Neon DB (PostgreSQL).
-- **Phase III (AI Integration):** Integration of OpenAI ChatKit and MCP (Model Context Protocol) for agentic task management. (Out of scope for current work)
+- **Phase III (AI Integration):** Integration of AI Agent layer with skill.md files for business logic, rule-based reasoning engine, and Next.js chat UI components. No external LLM dependencies required. Existing Phase 2 architecture remains unchanged.
 - **Phase IV (Containerization):** Containerization via Docker; orchestration using Minikube/Helm with kubectl-ai for cluster management. (Out of scope for current work)
 - **Phase V (Distributed System):** Evolution to a distributed system using Kafka (event-driven) and Dapr (sidecars) on DigitalOcean DOKS. (Out of scope for current work)
 
 ## Governance
 
-- **Success Criteria (Phase II Focus):**
-  - Web App Functionality: A functional, bug-free full-stack web application (Next.js + FastAPI) that implements core Todo features.
-  - Data Persistence: Successful integration with SQLModel and Neon DB for robust data storage and retrieval.
-  - Branch Compliance: All Phase II development strictly adheres to the `phase-2` branch policy and validation requirements.
-  - Automated Generation: All new code is generated by Claude from specifications, with no manual coding.
+- **Success Criteria (Phase III Focus):**
+  - AI Agent Integration: A functional AI Agent layer that handles intent detection, user context injection, and skill orchestration without external dependencies.
+  - Skill Architecture: Business logic implemented as reusable, stateless skill.md files that follow the defined patterns for deterministic execution.
+  - Chat Interface: A Next.js-based chat UI that enables natural language interaction with the application functionality.
+  - Architecture Preservation: All existing Phase 2 functionality (auth, DB, APIs) remains operational and unchanged after AI integration.
+  - Deterministic Reasoning: The AI layer operates with rule-based or mocked reasoning without external LLM dependencies, ensuring reliability and control.
 
-**Version**: 1.1.0 | **Ratified**: TODO(RATIFICATION_DATE): Needs to be provided | **Last Amended**: 2026-01-05
+**Version**: 1.2.0 | **Ratified**: TODO(RATIFICATION_DATE): Needs to be provided | **Last Amended**: 2026-01-17
