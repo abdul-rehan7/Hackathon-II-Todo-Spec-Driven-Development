@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: Chat API for AI-Powered Todo Interface
+  description: API for handling conversational interactions with the todo management system
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Development server
+  - url: https://api.todoapp.com
+    description: Production server
+
+paths:
+  /api/v1/chat/:
+    post:
+      summary: Process a chat message and return a response
+      description: Processes natural language input from the user and returns an appropriate response based on intent classification and skill execution
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: The user's natural language input
+                  example: "Add a todo to buy groceries tomorrow"
+                session_id:
+                  type: string
+                  format: uuid
+                  description: Optional session identifier for maintaining conversation context
+                  example: "550e8400-e29b-41d4-a716-446655440000"
+              required:
+                - message
+      responses:
+        '200':
+          description: Successfully processed the chat message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: The system's response to the user
+                    example: "I've added 'Buy groceries' to your todo list for tomorrow."
+                  intent:
+                    type: string
+                    description: The classified intent of the user's message
+                    example: "CREATE_TODO"
+                  action_taken:
+                    type: object
+                    description: Details about the action performed
+                    properties:
+                      type:
+                        type: string
+                        description: Type of action performed
+                        example: "todo_created"
+                      todo_id:
+                        type: integer
+                        description: ID of the created/modified todo (if applicable)
+                        example: 123
+                  confidence:
+                    type: number
+                    format: float
+                    description: Confidence score of the intent classification (0.0 to 1.0)
+                    example: 0.95
+        '400':
+          description: Bad request - invalid input or malformed request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity - could not understand the user's intent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: Description of the error
+          example: "Invalid authentication token"
+        error_code:
+          type: string
+          description: Specific error code for programmatic handling
+          example: "AUTH_001"
+
+    ChatMessageRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          description: The user's natural language input
+          example: "Mark the project proposal as complete"
+        session_id:
+          type: string
+          format: uuid
+          description: Optional session identifier for maintaining conversation context
+      required:
+        - message
+
+    ChatMessageResponse:
+      type: object
+      properties:
+        response:
+          type: string
+          description: The system's response to the user
+        intent:
+          type: string
+          description: The classified intent of the user's message
+        action_taken:
+          type: object
+          description: Details about the action performed
+        confidence:
+          type: number
+          format: float
+          description: Confidence score of the intent classification (0.0 to 1.0)
+      required:
+        - response
+        - intent
+        - confidence
