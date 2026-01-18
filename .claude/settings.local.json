@@ -45,7 +45,8 @@
       "Bash(git push origin phase-3)",
       "Bash(powershell -ExecutionPolicy Bypass -File \".specify/scripts/powershell/check-prerequisites.ps1\" -Json -RequireTasks -IncludeTasks)",
       "Bash(powershell -ExecutionPolicy Bypass -File \".specify/scripts/powershell/check-prerequisites.ps1\" -Json -FeatureDir \"specs/2-ai-conversational-todo\" -IncludeTasks)",
-      "Bash(powershell -ExecutionPolicy Bypass -File \".specify/scripts/powershell/check-prerequisites.ps1\" -Help)"
+      "Bash(powershell -ExecutionPolicy Bypass -File \".specify/scripts/powershell/check-prerequisites.ps1\" -Help)",
+      "Bash(git clone https://huggingface.co/spaces/mirza-rehan76/todo-backend)"
     ]
   }
 }
