@@ -10,9 +10,10 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
 # Import your backend modules - using absolute imports
-from backend.database.connection import create_db_and_tables
-from backend.api.v1.endpoints import todos
-from backend.api import auth  # Import auth endpoints
+from backend.src.database.connection import create_db_and_tables
+from backend.src.api.v1.endpoints import todos
+from backend.src.api import auth  # Import auth endpoints
+from backend.src.api.v1 import chat  # Import chat endpoints
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -36,6 +37,8 @@ app.add_middleware(
 app.include_router(todos.router, prefix="/api/v1")
 # Include auth router
 app.include_router(auth.router, prefix="/api/v1")  # Include auth router
+# Include chat router
+app.include_router(chat.router, prefix="/api/v1")  # Include chat router
 
 @app.get("/")
 def read_root():
