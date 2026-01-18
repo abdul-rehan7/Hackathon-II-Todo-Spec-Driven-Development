@@ -1,4 +1,5 @@
 import { Todo, TodoCreate, TodoUpdate } from '../types/todo';
+import { ChatRequest, ChatResponse } from '../types/chat';
 import authService from './authService';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
@@ -158,6 +159,34 @@ export const deleteTodo = async (id: number): Promise<ApiResponse<{ message: str
     return { data: result };
   } catch (error) {
     console.error('Error deleting todo:', error);
+    return { error: 'Network error - please try again' };
+  }
+};
+
+// Send a chat message and get a response
+export const sendChatMessage = async (message: string): Promise<ApiResponse<ChatResponse>> => {
+  try {
+    const chatRequest: ChatRequest = { message };
+
+    const response = await fetch(`${API_BASE_URL}/chat/`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(chatRequest),
+    });
+
+    if (response.status === 401) {
+      return { error: 'Authentication required' };
+    }
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { error: errorData.detail || 'Failed to send chat message' };
+    }
+
+    const chatResponse = await response.json();
+    return { data: chatResponse };
+  } catch (error) {
+    console.error('Error sending chat message:', error);
     return { error: 'Network error - please try again' };
   }
 };
